@@ -3,7 +3,7 @@ const router = express.Router();
 const {Log} = require('../models');
 const validateSession = require('../middleware/validateSession');
 
-router.get("/log", (req, res) => {
+router.get("/", (req, res) => {
     Log.findAll()
         .then(log => res.status(200).json(log))
         .catch(err => res.status(500).json({
@@ -11,10 +11,11 @@ router.get("/log", (req, res) => {
         }))
 })
 
-router.post('/log', validateSession, async (req, res) => {
+router.post('/', validateSession, async (req, res) => {
     try {
         
-        const {description, definition, result, owner_id} = req.body;
+        const {description, definition, result} = req.body;
+        const owner_id = req.user.id;
 
         let newLog = await Log.create({
             description, definition, result, owner_id
