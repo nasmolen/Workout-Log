@@ -20,7 +20,7 @@ router.post('/log', validateSession, async (req, res) => {
             description, definition, result, owner_id
         });
         res.status(200).json({
-            log: newLie,
+            log: newLog,
             message: "Log Created!"
         })
 

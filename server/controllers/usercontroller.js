@@ -10,10 +10,11 @@ const {UniqueConstraintError} = require('sequelize/lib/errors');
 router.post('/register', async(req, res) => {
 
     let {username, passwordhash} = req.body;
+    console.log(username, passwordhash);
 
     try {
         const newUser = await User.create({
-            username,
+            username: username,
             passwordhash: bcrypt.hashSync(passwordhash, 13)
         })
         res.status(201).json({
